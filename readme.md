@@ -150,14 +150,55 @@ Sources (.ts) location
 
 ## Debugging in Visual Studio Code
 
-Create and edit ".vscode/launch.json" at workspace root.
+Create and edit ".vscode/launch.json" at workspace root. (see below)
 
-E.g. Config debugging for two projects, "foo" and "bar".
+Then, navigate to debug sidebar
 
-- `.name` .. the label; in vscode debug sidebar dropdown list
-- `.url` .. auto navigate to this url after launching chrome
-- `.port` .. the --remote-debugging-port
-- `.sourceMapPathOverrides` .. map sourcemap path to local fs path
+Then, select a configuration from dropdown list, e.g. "foo"
+
+Then, start debugging (F5). 🎉
+
+
+
+### launch.json - Debugger for Firefox
+
+[Debugger for Firefox](https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug)
+
+```json5
+    ...
+    { // LAUNCH
+       "type": "firefox",
+       "request": "launch",
+       "name": "foo FF launch",
+       "url": "http://localhost:8080",
+       "pathMappings": [
+          {
+            "url": "webpack:///src/",
+            "path": "${workspaceRoot}/projects/foo/src/"
+          }
+       ]
+    },
+    { // ATTACH
+       "type": "firefox",
+       "request": "attach",
+       "name": "foo FF attach",
+       "port": 6080,
+       "pathMappings": [
+          {
+            "url": "webpack:///src/",
+            "path": "${workspaceRoot}/projects/qt/src/"
+          }
+       ]
+    },
+```
+
+Then config your firefox, see https://github.com/firefox-devtools/debugger/blob/master/docs/remotely-debuggable-browsers.md
+
+
+
+### launch.json - Debugger for Chrome
+
+[Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome)
 
 ```json5
 { 
@@ -166,7 +207,7 @@ E.g. Config debugging for two projects, "foo" and "bar".
     {
       "type": "chrome",
       "request": "launch",
-      "name": "foo",
+      "name": "foo chrome launch",
       "url": "http://localhost:8080", 
       "port": 9222,
       "sourceMaps": true, 
@@ -177,7 +218,7 @@ E.g. Config debugging for two projects, "foo" and "bar".
     {
       "type": "chrome",
       "request": "launch",
-      "name": "bar",
+      "name": "bar chrome launch",
       "url": "http://localhost:8081", 
       "port": 9223,
       "sourceMaps": true, 
@@ -189,8 +230,4 @@ E.g. Config debugging for two projects, "foo" and "bar".
 }
 ```
 
-Then, navigate to debug sidebar
 
-Then, select a configuration from dropdown list, e.g. "foo"
-
-Then, start debugging (F5). 🎉
