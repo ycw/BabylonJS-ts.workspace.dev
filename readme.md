@@ -186,7 +186,7 @@ Then, start debugging (F5). 🎉
        "pathMappings": [
           {
             "url": "webpack:///src/",
-            "path": "${workspaceRoot}/projects/qt/src/"
+            "path": "${workspaceRoot}/projects/foo/src/"
           }
        ]
     },
